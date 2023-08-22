@@ -2,7 +2,7 @@
 
 #pragma once
 
-class SUM
+class Summary
 {
 public:
 	Time SumOfTime(vector<Time> _time);

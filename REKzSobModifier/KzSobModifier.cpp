@@ -4,10 +4,10 @@
 #include<algorithm>
 #include<fstream>
 #include<Windows.h>
+#include <SHLOBJ.H>
 #include<iomanip>
 #include "ReadSobFile.h"
-#include "SUM.h"
-#include "SHLOBJ.H"
+#include "Summary.h"
 #include "utils.h"
 using namespace std;
 
@@ -87,7 +87,7 @@ string GetLocalAppdata() {
 	string localappdata;
 	bool result = utils::GetKnownFolderWrapper(localappdata, FOLDERID_LocalAppData);
 	if (!result) {
-		cout << "WTF??????" << endl;
+		cout << " Can't get the path of your LocalAppData! " << endl;
 		throw;
 	}
 	return localappdata;
@@ -103,17 +103,16 @@ void BackUpFile(string backupFilePath, string Path_of_File) {
 	else {
 		// 如果打开失败，就创建一个新的文件
 		ofstream newbackup_file(backupFilePath);
-
 		// 打开原始文件
 		ifstream source_file(Path_of_File);
 		if (source_file.is_open()) {
 			// 如果打开成功，就把原始文件的内容复制到新的文件中
-			string line3;
-			while (getline(source_file, line3)) {
-				newbackup_file << line3 << endl;
+			string get_line;
+			while (getline(source_file, get_line)) {
+				newbackup_file << get_line << endl;
 			}
 			source_file.close();
-			cout << endl << "Thank you for first opening! We make a back-up-file,named FirstTimebackup.zero,for you! " << endl;
+			cout << endl << "Thank you for first opening! We make a file, named FirstTimebackup.zero, to back up for you! " << endl;
 		}
 		else {
 			// 如果打开失败，就输出错误信息
@@ -306,8 +305,8 @@ string ChooseMode(string mode) {
 //选择难度
 string ChooseDifficulty(string NorH) {
 	while (1) {
-		cout << "  Choose the Mode Normal or Hard (Input only number):\n"
-			<< "--------------------------------------------------------" << endl;
+		cout << "  Choose the Mode Normal or Hard (Input only number):" << endl;
+		cout << "--------------------------------------------------------" << endl;
 		cout << "  1.Normal" << " " << "2.Hard" << " " << "3. Back" << endl;
 		cin >> NorH;
 		if (!JudgeModeNum(3, NorH)) {
@@ -423,16 +422,17 @@ int main() {
 	cout << "Welcome to use the KzSobModifier!" << endl;
 	cout << "Warning: This project can only be effective in the type 'Action Only'! " << endl;
 	cout << "         " << "Other types will take this project into trouble. So please do not have a try in other ones." << endl;
+	cout << " P.S. If you change the path of your saving files, this tool can't be used!" << endl;
 
-	bool _is_open = true;   //是否打开
+	bool _is_open = true;   //标志是否打开
 	ReadSobFile ReadSobInfo;    //读取文件数据类
-	SUM SumOfData;  //求和类
+	Summary SumOfData;  //求和类
 
 	int id = 0;
 	//获取steam的id
 	bool JudgeForSteam = utils::GetSteamId(id);
 	if (JudgeForSteam) {    //成功则读出id
-		cout << "Your Steam id:" << " " << id << endl;
+		cout << "Your Steam id is:" << " " << id << endl;
 	}
 	else {   //失败则说明无steam
 		cout << "Please check if your steam is correctly installed! The project will quit in 3s." << endl;
@@ -448,12 +448,14 @@ int main() {
 	//备份文件
 	string backupFilePath = LocalAppdata + "\\Katana_ZERO\\FirstTimebackup.zero";
 	BackUpFile(backupFilePath, Path_of_File);
+
+	//初始化变量
 	int cnt = 0;   //计数专用
 	int row = -1;   //行数统计
 	int DifficultyOfRun = -1;   //是否为困难模式
 	int NumOfDeath = -1;   //记录死亡数
 	int KindToCaculate = -1;  //是否计算医生
-	//记录时间
+	//记录时间的数据结构
 	Time FileTime;
 	FileTime.h = "0";
 	FileTime.m = "0";
@@ -475,24 +477,29 @@ int main() {
 		//改动sob
 		if ((mode[0] - '0') == 1) {
 			NormalOrHard = ChooseDifficulty(NormalOrHard);
+			//难度为普通
 			if (NormalOrHard[0] - '0' == 1) {
 				DifficultyOfRun = 1;
 			}
+			//难度为困难
 			else if (NormalOrHard[0] - '0' == 2) {
 				DifficultyOfRun = 2;
 			}
+			//有问题，重新选择
 			else {
 				mode = "";
 				goto _main;
 			}
 		_time:TimeOrDeath = ChooseTimeOrDeathToSum(TimeOrDeath);
-			//时间
+			//选择时间
 			if (TimeOrDeath[0] - '0' == 1) {
 				LevelName = ChooseLevel(LevelName);
+				//执行返回操作
 				if (stoi(LevelName) == 13) {
 					TimeOrDeath = "";
 					goto _time;
 				}
+				//1-12关中任意一关
 				else if (stoi(LevelName) < 13 && stoi(LevelName) > 0) {
 					LevelTime = CinRightFormatLevelTime(LevelTime);
 					FileTime = ReadSobInfo.read_time(LevelTime);
@@ -519,7 +526,7 @@ int main() {
 					return 0;
 				}
 			}
-			//死亡
+			//选择死亡数
 			else {
 				LevelName = ChooseLevel(LevelName);
 				if (stoi(LevelName) == 13) {
@@ -569,13 +576,16 @@ int main() {
 		}
 		//读取文件并计算sob
 		else if ((mode[0] - '0') == 2) {
-		diff:NormalOrHard = ChooseDifficulty(NormalOrHard);
+	diff:NormalOrHard = ChooseDifficulty(NormalOrHard);
+		    //难度为普通
 			if (NormalOrHard[0] - '0' == 1) {
 				DifficultyOfRun = 1;
 			}
+			//难度为困难
 			else if (NormalOrHard[0] - '0' == 2) {
 				DifficultyOfRun = 2;
 			}
+			//有问题，重新选择
 			else {
 				mode = "";
 				goto _main;
@@ -584,15 +594,16 @@ int main() {
 			if (SecretBoss[0] - '0' == 3) {
 				goto diff;
 			}
-			//不算
+			//不算医生
 			else if (SecretBoss[0] - '0' == 2) {
 				KindToCaculate = 2;
 			}
-			//算
+			//算医生
 			else {
 				KindToCaculate = 1;
 			}
-			cout << "\nLevel" << "           " << "Time" << "              " << "Deaths" << endl;
+			cout << endl;
+			cout << "Level" << "           " << "Time" << "              " << "Deaths" << endl;
 			cout << "---------------------------------------------------" << endl;
 			ifstream infile;
 			infile.open(Path_of_File, ios::in);
@@ -649,6 +660,7 @@ int main() {
 			infile.close();
 			FileTime = SumOfData.SumOfTime(SumOfTime);
 			cnt = 1;
+			//计算时间之和
 			while (cnt <= SumOfTime.size()) {
 				cout << std::left << setw(16) << Name_of_Level(cnt);
 				ReadSobInfo.CoutFormatTime(SumOfTime[cnt - 1]);
@@ -658,6 +670,7 @@ int main() {
 			}
 			cout << "Personal Best" << "：" << " ";
 			ReadSobInfo.CoutFormatTime(FileTime);
+			//输出死亡数之和
 			cout << std::right << "  \t    " << to_string(SumOfData.SumOfDeath(deaths));
 			cout << endl;
 			cout << endl;

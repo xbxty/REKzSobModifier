@@ -1,6 +1,6 @@
-#include "SUM.h"
+#include "Summary.h"
 
-Time SUM::SumOfTime(vector<Time> time) {
+Time Summary::SumOfTime(vector<Time> time) {
 	Time sum_of_time;
 	sum_of_time.h = "0";
 	sum_of_time.m = "0";
@@ -36,7 +36,7 @@ Time SUM::SumOfTime(vector<Time> time) {
 }
 
 
-int SUM::SumOfDeath(vector<string>deaths) {
+int Summary::SumOfDeath(vector<string>deaths) {
 	int sum_of_death = 0;
 	int deathnum = 0;
 	for (int i = 0; i < deaths.size(); i++) {

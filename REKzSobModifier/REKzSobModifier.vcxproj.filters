@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="KzSobModifierandCaculator.cpp">
+    <ClCompile Include="KzSobModifier.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ReadSobFile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SUM.cpp">
+    <ClCompile Include="Summary.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="ReadSobFile.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="SUM.h">
+    <ClInclude Include="Summary.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

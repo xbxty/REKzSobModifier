@@ -139,13 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="KzSobModifierandCaculator.cpp" />
+    <ClCompile Include="KzSobModifier.cpp" />
     <ClCompile Include="ReadSobFile.cpp" />
-    <ClCompile Include="SUM.cpp" />
+    <ClCompile Include="Summary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReadSobFile.h" />
-    <ClInclude Include="SUM.h" />
+    <ClInclude Include="Summary.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
