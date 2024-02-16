@@ -5,21 +5,21 @@
 仅支持windows(x64)环境下安装和使用
 <br />下载REKzSobModifier.exe程序,点开即可使用
 ## Directory
-│  README.md
-└─github配置文件
-    │ .gitattributes
-    │ .gitignore
-│  REKzSobModifier.exe
-│  REKzSobModifier.sln
-└─REKzSobModifier
-    │ KzSobModifier.cpp
-    │ utils.h
-    └─ReadSobFile
-        │  ReadSobFile.cpp
-        │  ReadSobFile.h
-    └─Summary
-        │  Summary.cpp
-        │  Summary.h
+│  README.md<br>
+└─github配置文件<br>
+  &ensp;&emsp;│ .gitattributes<br>
+  &ensp;&emsp;│ .gitignore<br>
+│  REKzSobModifier.exe<br>
+│  REKzSobModifier.sln<br>
+└─REKzSobModifier<br>
+    &ensp;&emsp;│ KzSobModifier.cpp<br>
+    &ensp;&emsp;│ utils.h<br>
+    &ensp;&emsp;└─ReadSobFile<br>
+        &ensp;&emsp;&ensp;&emsp;│  ReadSobFile.cpp<br>
+        &ensp;&emsp;&ensp;&emsp;│  ReadSobFile.h<br>
+    &ensp;&emsp;└─Summary<br>
+        &ensp;&emsp;&ensp;&emsp;│  Summary.cpp<br>
+        &ensp;&emsp;&ensp;&emsp;│  Summary.h<br>
 ## FAQ
 1. 不支持更改过Steam游戏存档路径的情况
 2. 仅支持'Action Only'的模式下使用
